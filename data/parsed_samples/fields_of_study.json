@@ -1,0 +1,103 @@
+{
+    "417682": {
+        "parentFields": [
+            "Biology",
+            "Botany",
+            "Medicine",
+            "Pathology"
+        ],
+        "name": "Night air",
+        "level": "2"
+    },
+    "1576492": {
+        "parentFields": [
+            "Matrix (mathematics)",
+            "Quantum mechanics",
+            "Physics",
+            "Algebra",
+            "Mathematical optimization",
+            "Mathematics",
+            "Eigenvalues and eigenvectors",
+            "Mathematical analysis"
+        ],
+        "name": "Matrix pencil",
+        "level": "3"
+    },
+    "2657588": {
+        "parentFields": [
+            "Combinatorics",
+            "Mathematics",
+            "Discrete mathematics",
+            "Topology"
+        ],
+        "name": "Combinatorial topology",
+        "level": "2"
+    },
+    "3079626": {
+        "parentFields": [
+            "Physics"
+        ],
+        "name": "Quantum electrodynamics",
+        "level": "1"
+    },
+    "3535393": {
+        "parentFields": [
+            "Physics",
+            "Liquid crystal",
+            "Optics",
+            "Condensed matter physics"
+        ],
+        "name": "Mesophase",
+        "level": "3"
+    },
+    "4084960": {
+        "parentFields": [
+            "Physical chemistry",
+            "Chemistry"
+        ],
+        "name": "Latimer diagram",
+        "level": "2"
+    },
+    "5688416": {
+        "parentFields": [
+            "Neutron",
+            "Physics",
+            "Atomic physics",
+            "Nuclear magnetic resonance",
+            "Nuclear physics",
+            "Neutron scattering",
+            "Neutron temperature"
+        ],
+        "name": "Neutron cross section",
+        "level": "4"
+    },
+    "7271767": {
+        "parentFields": [
+            "Chemistry",
+            "Biology",
+            "Molecular biology",
+            "Biochemistry",
+            "Gene",
+            "Genetics"
+        ],
+        "name": "Primer (molecular biology)",
+        "level": "3"
+    },
+    "185592680": {
+        "parentFields": [],
+        "name": "Chemistry",
+        "level": "0"
+    },
+    "11045955": {
+        "parentFields": [
+            "Encryption",
+            "Computer science",
+            "Public-key cryptography",
+            "Computer network",
+            "Computer security",
+            "Theoretical computer science"
+        ],
+        "name": "ElGamal encryption",
+        "level": "4"
+    }
+}

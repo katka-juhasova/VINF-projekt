@@ -1,0 +1,7 @@
+.idea/
+data/*.nt
+data/*.nt.bz2
+data/*.json
+data/*.txt
+docs/*.drawio
+docs/*.png
