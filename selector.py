@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 import json
 import bz2
 import re
@@ -77,3 +76,63 @@ def get_1000_papers():
 
     with open('data/parsed_papers_1000.json', 'w') as outfile:
         json.dump(papers_1000, outfile, indent=4)
+
+
+def get_author_names():
+    names = dict()
+    count = 0
+
+    with bz2.open('data/Authors.nt.bz2', 'rt') as f:
+        for line in f:
+            matched_line = re.match(
+                '^<.*/([0-9]+?)> <.*/name> "(.+?)"\^\^<.*>', line)
+
+            if matched_line:
+                count += 1
+                if count > 1000000:
+                    break
+                names[int(matched_line.group(1))] = matched_line.group(2)
+
+    with open('data/author_names.json', 'w') as outfile:
+        json.dump(names, outfile, indent=4)
+
+
+def get_paper_ids():
+    with open('data/author_ids_1000.txt', 'r') as f:
+        author_ids = json.load(f)
+
+    paper_ids = list()
+
+    with bz2.open('data/PaperAuthorAffiliations.nt.bz2', 'rt') as f:
+        for line in f:
+            matched_line = re.match(
+                '^<.*/([0-9]+?)> <.*> <.*/([0-9]+?)>', line
+            )
+
+            if matched_line.group(2) in author_ids:
+                print('got author {} and adding paper {}'.format(
+                    matched_line.group(2), matched_line.group(1)))
+                paper_ids.append(matched_line.group(1))
+
+    paper_ids = list(set(paper_ids))
+
+    with open('data/paper_ids_2000.txt', 'w') as f:
+        f.write(json.dumps(paper_ids))
+
+
+def get_2000_papers():
+    with open('data/paper_ids_2000.txt') as papers_file:
+        paper_ids = json.load(papers_file)
+
+    paper_lines = list()
+
+    with bz2.open('data/Papers.nt.bz2', 'rt') as f:
+        for line in f:
+            matched_line = re.match('^<.*/([0-9]+?)> <.*> .$', line)
+
+            if matched_line and matched_line.group(1) in paper_ids:
+                print('appending paper {}'.format(matched_line.group(1)))
+                paper_lines.append(line)
+
+    with open('data/papers_selection_2000.nt', 'w') as outfile:
+        outfile.write(''.join(paper_lines))
