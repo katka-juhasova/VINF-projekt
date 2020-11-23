@@ -331,6 +331,8 @@ def main():
     merge_authors('data/parsed_authors_v2_1000.json',
                   'data/parsed_authors_v3_1000.json')
 
+    # TODO: update parse_papers() or add function so that each paper contains
+    #  ids of authors
     # TODO: remove parentFieldsOfStudy
     # TODO: parse all papers written by authors from author_ids_1000.txt
     # TODO: merge those papers with authors from parsed_authors_v2_1000.json
@@ -339,3 +341,4 @@ def main():
     # TODO: handle duplicate papers
     # TODO: add matching on same author groups
     # TODO: clean up the repository
+    # TODO: create index for searching in data                             
