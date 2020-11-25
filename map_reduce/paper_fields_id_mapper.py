@@ -13,7 +13,7 @@ for line in infile:
     if matched_pair:
         paper = matched_pair.group(1)
         field = matched_pair.group(2)
-        print(field + '-\t' + paper)
+        print(field + 'X\t' + paper)
 
     else:
         field = json.loads(line)

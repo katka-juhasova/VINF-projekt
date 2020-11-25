@@ -13,7 +13,7 @@ for line in infile:
         author['id'] = author['authorId']
         del author['paperId']
         del author['authorId']
-        print(paper + '-\t' + json.dumps(author))
+        print(paper + 'X\t' + json.dumps(author))
 
     else:
         paper = line['id']

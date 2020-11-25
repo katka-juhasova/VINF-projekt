@@ -14,7 +14,7 @@ authors_key_order = ['id', 'name', 'paperCount', 'citationCount']
 
 for line in sys.stdin:
     paper, info = line.strip().split('\t', 1)
-    paper = paper.strip('-')
+    paper = paper.strip('X')
     info = json.loads(info)
 
     if current_paper == paper:

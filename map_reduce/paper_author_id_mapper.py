@@ -13,7 +13,7 @@ for line in infile:
     if matched_pair:
         paper = matched_pair.group(1)
         author = matched_pair.group(2)
-        print(author + '-\t' + paper)
+        print(author + 'X\t' + paper)
 
     else:
         author = json.loads(line)

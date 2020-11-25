@@ -11,11 +11,11 @@ key_order = ['paperId', 'fieldId', 'fieldName']
 
 for line in sys.stdin:
     field, info = line.strip().split('\t', 1)
-    field = field.strip('-')
+    field = field.strip('X')
 
     if current_field == field:
         if not info.isdigit():
-            print('it')
+            # it should never get to this part of code
             info = json.loads(info)
             current_field_info = {'fieldId': field, 'fieldName': info['name']}
 
