@@ -10,8 +10,7 @@ current_field_info = dict()
 key_order = ['paperId', 'fieldId', 'fieldName']
 
 for line in sys.stdin:
-    field, info = line.strip().split('\t', 1)
-    field = field.strip('X')
+    field, type, info = line.strip().split('\t', 2)
 
     if current_field == field:
         if not info.isdigit():

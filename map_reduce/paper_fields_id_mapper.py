@@ -13,10 +13,10 @@ for line in infile:
     if matched_pair:
         paper = matched_pair.group(1)
         field = matched_pair.group(2)
-        print(field + 'X\t' + paper)
+        print(field + '\t1\t' + paper)
 
     else:
         field = json.loads(line)
         field_id = field['id']
         del field['id']
-        print(field_id + '\t' + json.dumps(field))
+        print(field_id + '\t0\t' + json.dumps(field))

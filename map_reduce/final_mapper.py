@@ -8,16 +8,22 @@ infile = sys.stdin
 for line in infile:
     line = json.loads(line)
 
-    if 'authors' in line:
-        for i, author in enumerate(line['authors']):
+    # line containing whole paper record
+    if 'authors' in line and 'title' in line:
+        for author in line['authors']:
             author_id = author['id']
-            print(author_id + '\t' + json.dumps(author))
+            print(author_id + '\t0\t' + json.dumps(author))
 
             line_copy = copy.deepcopy(line)
-            del line_copy['authors'][i]
-
-            coauthors = [x['name'] for x in line_copy['authors']]
+            coauthors = [x['name'] for x in line['authors']]
+            coauthors.remove(author['name'])
+            if coauthors:
+                line_copy['coauthors'] = coauthors
             del line_copy['authors']
 
-            line_copy['coauthors'] = coauthors
-            print(author_id + 'X\t' + json.dumps(line_copy))
+            print(author_id + '\t1\t' + json.dumps(line_copy))
+
+    # line containing author with no paper
+    elif 'name' in line and 'title' not in line:
+        author_id = line['id']
+        print(author_id + '\t0\t' + json.dumps(line))

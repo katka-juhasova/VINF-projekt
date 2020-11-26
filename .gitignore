@@ -6,3 +6,4 @@ data/*.json
 data/*.txt
 docs/*.drawio
 docs/*.png
+map_reduce/*.nt

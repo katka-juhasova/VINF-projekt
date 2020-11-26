@@ -13,9 +13,9 @@ for line in infile:
         author['id'] = author['authorId']
         del author['paperId']
         del author['authorId']
-        print(paper + 'X\t' + json.dumps(author))
+        print(paper + '\t1\t' + json.dumps(author))
 
     else:
         paper = line['id']
         paper_info = line
-        print(paper + '\t' + json.dumps(paper_info))
+        print(paper + '\t0\t' + json.dumps(paper_info))

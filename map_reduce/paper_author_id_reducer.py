@@ -11,8 +11,7 @@ key_order = ['authorId', 'name', 'paperCount', 'citationCount']
 # + 'paperId' in the beginning
 
 for line in sys.stdin:
-    author, info = line.strip().split('\t', 1)
-    author = author.strip('X')
+    author, type, info = line.strip().split('\t', 2)
 
     if current_author == author:
         if not info.isdigit():

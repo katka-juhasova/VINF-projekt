@@ -13,10 +13,10 @@ for line in infile:
     if matched_pair:
         paper = matched_pair.group(1)
         author = matched_pair.group(2)
-        print(author + 'X\t' + paper)
+        print(author + '\t1\t' + paper)
 
     else:
         author = json.loads(line)
         author_id = author['id']
         del author['id']
-        print(author_id + '\t' + json.dumps(author))
+        print(author_id + '\t0\t' + json.dumps(author))

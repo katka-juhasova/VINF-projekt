@@ -31,7 +31,11 @@ for line in sys.stdin:
                 if key in current_paper_info:
                     ordered_paper_info[key] = current_paper_info[key]
 
-            print(json.dumps(ordered_paper_info))
+            # if there is by any chance a field which doesn't belong to any
+            # paper, ordered_paper_info is at this point just an empty string
+            # which we don't want to print
+            if ordered_paper_info:
+                print(json.dumps(ordered_paper_info))
 
         current_paper = paper
         current_paper_info = paper_info
@@ -43,6 +47,7 @@ if current_paper == paper:
         if key in current_paper_info:
             ordered_paper_info[key] = current_paper_info[key]
 
-    print(json.dumps(ordered_paper_info))
+    if ordered_paper_info:
+        print(json.dumps(ordered_paper_info))
 
 # NOTE: not all the papers have fields of study

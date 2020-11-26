@@ -10,24 +10,26 @@ current_paper_info = dict()
 key_order = ['id', 'title', 'publicationDate', 'referenceCount',
              'citationCount', 'estimatedCitationCount', 'fieldsOfStudy',
              'authors']
-authors_key_order = ['id', 'name', 'paperCount', 'citationCount']
+author_key_order = ['id', 'name', 'paperCount', 'citationCount']
 
+# 0: paper
+# 1: author
 for line in sys.stdin:
-    paper, info = line.strip().split('\t', 1)
-    paper = paper.strip('X')
+    paper, type, info = line.strip().split('\t', 2)
     info = json.loads(info)
 
     if current_paper == paper:
         if 'title' in info:
-            # NOTE: the code should never get here
-            current_paper_info.update(info)
+            # NOTE: the code should never get here, if it does get here it just
+            # multiple records for paper since the ids are matching
+            continue
 
         else:
             if 'authors' not in current_paper_info:
                 current_paper_info['authors'] = list()
 
             ordered_author_info = OrderedDict()
-            for key in authors_key_order:
+            for key in author_key_order:
                 if key in info:
                     ordered_author_info[key] = info[key]
 
@@ -35,21 +37,35 @@ for line in sys.stdin:
 
     else:
         if current_paper:
-            ordered_paper_info = OrderedDict()
-            for key in key_order:
-                if key in current_paper_info:
-                    ordered_paper_info[key] = current_paper_info[key]
+            ordered_info = OrderedDict()
+            # we have paper with or without authors
+            if 'title' in current_paper_info:
+                for key in key_order:
+                    if key in current_paper_info:
+                        ordered_info[key] = current_paper_info[key]
 
-            print(json.dumps(ordered_paper_info))
+            # we have author which doesn't have any paper
+            else:
+                for key in author_key_order:
+                    if key in current_paper_info:
+                        ordered_info[key] = current_paper_info[key]
+            print(json.dumps(ordered_info))
 
         current_paper = paper
         current_paper_info = info
 
 # last paper
 if current_paper == paper:
-    ordered_paper_info = OrderedDict()
-    for key in key_order:
-        if key in current_paper_info:
-            ordered_paper_info[key] = current_paper_info[key]
+    ordered_info = OrderedDict()
+    # we have paper with or without authors
+    if 'title' in current_paper_info:
+        for key in key_order:
+            if key in current_paper_info:
+                ordered_info[key] = current_paper_info[key]
 
-    print(json.dumps(ordered_paper_info))
+    # we have author which doesn't have any paper
+    else:
+        for key in author_key_order:
+            if key in current_paper_info:
+                ordered_info[key] = current_paper_info[key]
+    print(json.dumps(ordered_info))
