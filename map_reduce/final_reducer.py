@@ -42,7 +42,6 @@ for line in sys.stdin:
                     ordered_author_info[key] = current_author_info[key]
 
             print(html.unescape(json.dumps(ordered_author_info)))
-            # print(json.dumps(ordered_author_info))
 
         current_author = author
         current_author_info = info
@@ -55,4 +54,3 @@ if current_author == author:
             ordered_author_info[key] = current_author_info[key]
 
     print(html.unescape(json.dumps(ordered_author_info)))
-    # print(json.dumps(ordered_author_info))

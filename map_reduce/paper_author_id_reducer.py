@@ -36,5 +36,3 @@ for line in sys.stdin:
             info = json.loads(info)
             current_author_info = {'authorId': author}
             current_author_info.update(info)
-
-# NOTE: v dalsom map-reduce pozor, moze byt aj author bex paper

@@ -1,0 +1,82 @@
+PATH_TO_SCRIPTS="<your_path_to_scripts>"
+PATH_TO_FILES="<your_path_to_files>"
+
+hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+	-D mapred.output.compress=true \
+	-D mapred.output.compression.codec=org.apache.hadoop.io.compress.BZip2Codec \
+	-file $PATH_TO_SCRIPTS/authors_mapper.py \
+	-mapper $PATH_TO_SCRIPTS/authors_mapper.py \
+	-file $PATH_TO_SCRIPTS/authors_reducer.py \
+	-reducer $PATH_TO_SCRIPTS/authors_reducer.py \
+	-input $PATH_TO_FILES/Authors.nt.bz2 \
+	-output $PATH_TO_FILES/authors_output
+
+hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+	-D mapred.output.compress=true \
+	-D mapred.output.compression.codec=org.apache.hadoop.io.compress.BZip2Codec \
+	-file $PATH_TO_SCRIPTS/papers_mapper.py \
+	-mapper $PATH_TO_SCRIPTS/papers_mapper.py \
+	-file $PATH_TO_SCRIPTS/papers_reducer.py \
+	-reducer $PATH_TO_SCRIPTS/papers_reducer.py \
+	-input $PATH_TO_FILES/Papers.nt.bz2 \
+	-output $PATH_TO_FILES/papers_output
+
+hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+	-D mapred.output.compress=true \
+	-D mapred.output.compression.codec=org.apache.hadoop.io.compress.BZip2Codec \
+	-file $PATH_TO_SCRIPTS/fields_mapper.py \
+	-mapper $PATH_TO_SCRIPTS/fields_mapper.py \
+	-file $PATH_TO_SCRIPTS/fields_reducer.py \
+	-reducer $PATH_TO_SCRIPTS/fields_reducer.py \
+	-input $PATH_TO_FILES/FieldsOfStudy.nt.bz2 \
+	-output $PATH_TO_FILES/fields_output
+
+hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+	-D mapred.output.compress=true \
+	-D mapred.output.compression.codec=org.apache.hadoop.io.compress.BZip2Codec \
+	-file $PATH_TO_SCRIPTS/paper_fields_id_mapper.py \
+	-mapper $PATH_TO_SCRIPTS/paper_fields_id_mapper.py \
+	-file $PATH_TO_SCRIPTS/paper_fields_id_reducer.py \
+	-reducer $PATH_TO_SCRIPTS/paper_fields_id_reducer.py \
+	-input $PATH_TO_FILES/fields_output/part-00000.bz2,$PATH_TO_FILES/PaperFieldsOfStudy.nt.bz2 \
+	-output $PATH_TO_FILES/paper_fields_output_v0
+
+hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+	-D mapred.output.compress=true \
+	-D mapred.output.compression.codec=org.apache.hadoop.io.compress.BZip2Codec \
+	-file $PATH_TO_SCRIPTS/paper_fields_mapper.py \
+	-mapper $PATH_TO_SCRIPTS/paper_fields_mapper.py \
+	-file $PATH_TO_SCRIPTS/paper_fields_reducer.py \
+	-reducer $PATH_TO_SCRIPTS/paper_fields_reducer.py \
+	-input $PATH_TO_FILES/papers_output/part-00000.bz2,$PATH_TO_FILES/paper_fields_output_v0/part-00000.bz2 \
+	-output $PATH_TO_FILES/paper_fields_output
+
+hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+	-D mapred.output.compress=true \
+	-D mapred.output.compression.codec=org.apache.hadoop.io.compress.BZip2Codec \
+	-file $PATH_TO_SCRIPTS/paper_author_id_mapper.py \
+	-mapper $PATH_TO_SCRIPTS/paper_author_id_mapper.py \
+	-file $PATH_TO_SCRIPTS/paper_author_id_reducer.py \
+	-reducer $PATH_TO_SCRIPTS/paper_author_id_reducer.py \
+	-input $PATH_TO_FILES/authors_output/part-00000.bz2,$PATH_TO_FILES/PaperAuthorAffiliations.nt.bz2 \
+	-output $PATH_TO_FILES/paper_authors_output_v0
+
+hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+	-D mapred.output.compress=true \
+	-D mapred.output.compression.codec=org.apache.hadoop.io.compress.BZip2Codec \
+	-file $PATH_TO_SCRIPTS/paper_author_mapper.py \
+	-mapper $PATH_TO_SCRIPTS/paper_author_mapper.py \
+	-file $PATH_TO_SCRIPTS/paper_author_reducer.py \
+	-reducer $PATH_TO_SCRIPTS/paper_author_reducer.py \
+	-input $PATH_TO_FILES/paper_fields_output/part-00000.bz2,$PATH_TO_FILES/paper_authors_output_v0/part-00000.bz2 \
+	-output $PATH_TO_FILES/paper_authors_output
+
+hadoop jar share/hadoop/tools/lib/hadoop-streaming-3.2.1.jar \
+	-D mapred.output.compress=true \
+	-D mapred.output.compression.codec=org.apache.hadoop.io.compress.BZip2Codec \
+	-file $PATH_TO_SCRIPTS/final_mapper.py \
+	-mapper $PATH_TO_SCRIPTS/final_mapper.py \
+	-file $PATH_TO_SCRIPTS/final_reducer.py \
+	-reducer $PATH_TO_SCRIPTS/final_reducer.py \
+	-input $PATH_TO_FILES/paper_authors_output/part-00000.bz2 \
+	-output $PATH_TO_FILES/final_output

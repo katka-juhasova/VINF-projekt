@@ -7,3 +7,7 @@ data/*.txt
 docs/*.drawio
 docs/*.png
 map_reduce/*.nt
+data/data samples
+data/output samples
+data/*.zip
+data/out.tgz

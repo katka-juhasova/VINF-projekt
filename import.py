@@ -4,7 +4,8 @@ from os import listdir
 import json
 import html
 
-BULK_SIZE = 3000
+
+BULK_SIZE = 1000
 INDEX = 'authors'
 
 
@@ -21,18 +22,16 @@ def get_actions_from_line(line: dict) -> list:
                 'title': html.unescape(paper['title']),
 
                 'fields_of_study': (
-                    [{'name': field}
-                     for field in paper['fieldsOfStudy']
-                     ] if 'fieldsOfStudy' in paper else None),
+                    '\n'.join(
+                        [field for field in paper['fieldsOfStudy']]
+                    ) if 'fieldsOfStudy' in paper else None),
 
                 'coauthors': (
-                    [{'name': html.unescape(coauthor)}
-                     for coauthor in paper['coauthors']
-                     ] if 'coauthors' in paper else None)
+                    '\n'.join(
+                        [html.unescape(coauthor) for coauthor
+                         in paper['coauthors']]
+                    ) if 'coauthors' in paper else None)
             }
-
-            if new_paper['coauthors']:
-                new_paper['coauthors'] = new_paper['coauthors']
 
             papers.append(new_paper)
 
